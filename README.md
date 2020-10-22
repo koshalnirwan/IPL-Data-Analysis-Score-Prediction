@@ -16,10 +16,11 @@ that are also been visualized for clearly understanding the stats and records in
 
 ## Datasets Used
 ### 1. For Data Analysis and Visualization
-<img src="images/bar.JPG" width=500 height=300>
+
+<img src="images/del_1.JPG" width=300>  |  <img src="images/del_2.JPG" width=300>
 
 ### 2. For Score Prediction
-<img src="images/bar.JPG" width=500 height=300>
+<img src="images/pred_data.JPG" width=500 height=300>
 
 ## Some Stats present and Visualized in app
 ### 1. Runs Scored by Top 9 Teams in IPL
