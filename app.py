@@ -280,13 +280,12 @@ elif radio == 'Score Predictor':
             st.error('Batting and Bowling Teams Cannot be Same')
         else:
             st.success(f'Score will be between {lower} to {upper} Runs'.format(lower,upper))
- 
-########################################### TEAM STATS ################################################3    
+     
 elif radio == 'Team Stats':
     st.markdown(""" 
                 <h2 style="color:black;text-align:center;"><b><i>All The Teams Related Stats
                 </h2></div>""",unsafe_allow_html=True) 
-    m_total = pickle.load(open('team.pickle','rb'))    
+    m_total = pickle.load(open('team_stats.pickle','rb'))    
         
     ts = st.selectbox('',['ALL Teams','Mumbai Indians','Royal Challengers','Kings XI Punjab','Kolkata Knight Riders',
                           'Delhi Daredevils','Chennai Super Kings','Rajasthan Royals','Sunrisers Hyderabad','Deccan Chargers'])
@@ -405,9 +404,7 @@ elif radio == 'Team Stats':
         dc_m1 = team_data(dc_m,'Deccan Chargers')
         dc_m1 = dc_m1.rename(columns={'total balls':'runs scored'}).drop([0,6])
         pie_chart(dc_m1,'Balls hit for','runs scored',team_bar_h[1:7],pull[:6],0.6,'How Deccan Chargers Scored Runs with Bat','black')
-        funnel_chart(dc_m1.sort_values('runs scored',ascending=False),'runs scored','Balls hit for',team_color[:5],600,'How Deccan Chargers Scored Runs with Bat')
-
-############################################ BATTING STATS ################################################    
+        funnel_chart(dc_m1.sort_values('runs scored',ascending=False),'runs scored','Balls hit for',team_color[:5],600,'How Deccan Chargers Scored Runs with Bat')    
         
 elif radio == 'Batting Stats': 
        st.markdown(""" 
@@ -467,8 +464,7 @@ elif radio == 'Batting Stats':
                st.table(bat.sort_values(top,ascending=False).head(num))
        else:
            st.table(bat)
-        #batting_stats()
-    
+            
 elif radio == 'Bowling Stats':
     st.markdown(""" 
                 <h2 style="color:black;text-align:center;"><b><i>All The Bowling Stats
@@ -531,7 +527,6 @@ elif radio == 'Bowling Stats':
            st.table(bowl.sort_values(top,ascending=False).tail(num))
     else:
        st.table(bowl)
-    #bowling_stats()
 
 elif radio == 'Fielding Stats':
     st.markdown(""" 
@@ -560,14 +555,11 @@ elif radio == 'Fielding Stats':
            scatter_chart(field.sort_values(top,ascending=False).head(num),field.sort_values(top,ascending=False).index[:num],
                          'Run Outs',team_bar_20[:num],'Run Outs',f'Top {num} Fielders With Most {top}'.format(num,top))
            bar_chart(field.sort_values(top,ascending=False).head(num),field.sort_values(top,ascending=False).index[:num],
-                          'Run Outs',team_bar_20[:num],f'Top {num} Fielders With Most {top}'.format(num,top))
-           
+                          'Run Outs',team_bar_20[:num],f'Top {num} Fielders With Most {top}'.format(num,top))           
            st.subheader('DATA')
            st.table(field.sort_values(top,ascending=False).head(num))
-
     else:
        st.table(field.sort_values('Catches',ascending=False))
-    #fielding_stats()
     
 elif radio == 'Interesting Insights':
     st.markdown(""" 
@@ -591,11 +583,9 @@ elif radio == 'Interesting Insights':
         
         pie_chart(ball_w2,ball_w2['ball_no'],'Wickets',team_bar[0:9],pull[:6],0.6,'Number of Wickets Fell On Each Ball of an Over','black')
         bar_chart(ball_w2,'ball_no','Wickets',team_bar[4:13],'Number of Wickets Fell On Each Ball of Over')
-        #scatter_chart(ball_w2,'ball_no','Wickets',team_bar_20[:9],'Wickets','Number of Wickets Fell On Each Ball')
         st.subheader('Derived Data')
         st.table(ball_w2.set_index('ball_no'))
-       
-    # wickets fell in each over
+
     elif select == 'Number of Wickets Fell In Each Over':
         over_w = df.copy()
         over_w['player_dismissed'] = df.player_dismissed.fillna(0)
@@ -608,8 +598,7 @@ elif radio == 'Interesting Insights':
         scatter_chart(over_w2,'over_no','Wickets',team_bar_20,'Wickets','Number of Wickets Fell In Each Over')
         st.subheader('Derived Data')
         st.table(over_w2.set_index('over_no'))
-    
-    # Super Overs Played by each team
+
     elif select == 'Super Overs Played':
         super_over = df.groupby(['batting_team'])['is_super_over'].value_counts()
         super_over = pd.DataFrame(super_over).rename(columns={'is_super_over':'Super Overs'}).reset_index()
@@ -618,8 +607,7 @@ elif radio == 'Interesting Insights':
         bar_chart(super_over,'batting_team','Super Overs',team_bar_20,'Number of Wickets Fell In Each Over')
         st.subheader('Derived Data')
         st.table(super_over.set_index('batting_team'))
-    
-    # How Wickets fell for batting side
+
     elif select == 'How Wickets Fell for Each Team':
         
         b_catch = dismissal_type('caught','batting_team')
@@ -649,8 +637,7 @@ elif radio == 'Interesting Insights':
         st.table(b_kind2.set_index('Type'))
         
     elif select == 'How Each Team Have Taken Wickets':
-    
-        # How teams have taken wickets while bowling        
+        
         f_catch = dismissal_type('caught','bowling_team')
         f_bowled = dismissal_type('bowled','bowling_team')
         f_run_out = dismissal_type('run out','bowling_team')
@@ -678,7 +665,6 @@ elif radio == 'Interesting Insights':
         st.table(f_kind2.set_index('Type'))
     
     elif select == 'How Each Bowler Have Taken Wickets':
-        # How each bowler have taken wickets
        
         bowler_catch = dismissal_type('caught','bowler')
         bowler_bowled = dismissal_type('bowled','bowler')
@@ -705,7 +691,7 @@ elif radio == 'Interesting Insights':
         st.subheader('Derived Data')
         st.table(bowler_kind2.set_index('Type'))
 
-    #other_analysis()
+    
 
 
 
