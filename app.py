@@ -1,7 +1,7 @@
+import pickle
 import pandas as pd
 import numpy as np
 import plotly as py
-import pickle
 import streamlit as st
 import plotly.express as px
 from functools import reduce
@@ -10,8 +10,9 @@ from sklearn.ensemble import RandomForestRegressor
 
 @st.cache(allow_output_mutation=True)
 def fetch_data():
-    df_3 = pickle.load(open('fetch_data.pickle','rb'))    
-    return df_3
+    df_2 = pd.read_csv('deliveries.csv')
+    df_2 = df_2.replace('Rising Pune Supergiants','Rising Pune Supergiant')    
+    return df_2
 
 @st.cache(allow_output_mutation=True)
 def score_predictor():
