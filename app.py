@@ -691,8 +691,7 @@ elif radio == 'Interesting Insights':
         st.subheader('Derived Data')
         st.table(bowler_kind2.set_index('Type'))
 
-    
-
+st.sidebar.success('author : @Koshal')
 
 
 
