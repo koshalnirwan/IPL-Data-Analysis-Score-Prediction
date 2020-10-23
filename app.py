@@ -33,7 +33,7 @@ df = fetch_data()
 data,model = score_predictor()
 
 
-st.sidebar.header('CHOOSE THE TOPICS')
+st.sidebar.header('CHOOSE FROM CONTENTS')
 radio = st.sidebar.radio('',['Introduction','Raw Dataset','Score Predictor','Team Stats','Batting Stats','Bowling Stats','Fielding Stats','Interesting Insights'])
 
 ########### FUNCTIONS #########################################################
